@@ -5,6 +5,7 @@ Users represent an individual's account on Box.
 
 * [Get the Current User's Information](#get-the-current-users-information)
 * [Update User](#update-user)
+* [Delete User](#delete-user)
 * [Get Email Aliases](#get-email-aliases)
 * [Add Email Alias](#add-email-alias)
 * [Delete Email Alias](#delete-email-alias)
@@ -27,6 +28,15 @@ To update a user call the [`users.update(userID, options, callback)`](http://ope
 
 ```js
 client.users.update('123', {name: 'New Name', job_title: 'New Title', phone: '555-1111'}, callback);
+```
+
+
+Delete User
+-----------
+
+To delete a user call the [`users.delete(userID, notify, force, callback)`](http://opensource.box.com/box-node-sdk/Users.html#delete) method.
+```js
+client.users.delete('123', true, false, callback);
 ```
 
 
