@@ -7,6 +7,7 @@ Users represent an individual's account on Box.
 * [Get Enterprise Users](#get-enterprise-users)
 * [Update User](#update-user)
 * [Delete User](#delete-user)
+* [Invite User](#invite-user)
 * [Get Email Aliases](#get-email-aliases)
 * [Add Email Alias](#add-email-alias)
 * [Delete Email Alias](#delete-email-alias)
@@ -48,6 +49,15 @@ Delete User
 To delete a user call the [`users.delete(userID, notify, force, callback)`](http://opensource.box.com/box-node-sdk/Users.html#delete) method.
 ```js
 client.users.delete('123', true, false, callback);
+```
+
+
+Invite User
+-----------
+
+To invite an existing user to join an Enterprise call the [`users.invite(enterpriseID, login, callback)`](http://opensource.box.com/box-node-sdk/Users.html#invite) method.
+```js
+client.users.invite('456', 'user@example.com', callback);
 ```
 
 
