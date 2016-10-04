@@ -8,6 +8,7 @@ Users represent an individual's account on Box.
 * [Update User](#update-user)
 * [Delete User](#delete-user)
 * [Invite User](#invite-user)
+* [Move User's Folder](#move-users-folder)
 * [Get Email Aliases](#get-email-aliases)
 * [Add Email Alias](#add-email-alias)
 * [Delete Email Alias](#delete-email-alias)
@@ -58,6 +59,15 @@ Invite User
 To invite an existing user to join an Enterprise call the [`users.invite(enterpriseID, login, callback)`](http://opensource.box.com/box-node-sdk/Users.html#invite) method.
 ```js
 client.users.invite('456', 'user@example.com', callback);
+```
+
+
+Move User's Folder
+------------------
+To move the content from user's folder into a new folder in another user's account call the [`users.moveFolder(userID, ownedByID, qs, callback)`](http://opensource.box.com/box-node-sdk/Users.html#moveFolder) method.
+
+```js
+client.users.moveFolder('123', '456', {notify: false}, callback);
 ```
 
 
