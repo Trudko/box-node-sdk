@@ -20,6 +20,8 @@ var sandbox = sinon.sandbox.create(),
 	Tasks,
 	tasks,
 	BASE_PATH = '/tasks',
+	TASK_ASSIGNMENTS_PATH = '/task_assignments',
+	TASK_ID = '1234',
 	FILE_ID = '1234',
 	REVIEW_ACTION = 'review',
 	MODULE_FILE_PATH = '../../../lib/managers/tasks';
@@ -112,6 +114,70 @@ describe('Tasks', function() {
 			tasks.create(FILE_ID, {message: message, dueAt: dueAt}, done);
 		});
 
+	});
+
+	describe('createAssignmentWithUserLogin()', function() {
+		var login,
+			expectedParams;
+
+		beforeEach(function() {
+			login = 'sean@box.com';
+			expectedParams = {
+				body: {
+					item: {
+						type: 'task',
+						id: TASK_ID
+					},
+					assign_to: {
+						login: login
+					}
+				}
+			};
+		});
+
+		it('should make POST request with user login to create a task assignment when called', function() {
+			sandbox.stub(boxClientFake, 'defaultResponseHandler');
+			sandbox.mock(boxClientFake).expects('post').withArgs(TASK_ASSIGNMENTS_PATH, expectedParams);
+			tasks.createAssignmentWithUserLogin(TASK_ID, login);
+		});
+
+		it('should call BoxClient defaultResponseHandler method with the callback when response is returned', function(done) {
+			sandbox.mock(boxClientFake).expects('defaultResponseHandler').withArgs(done).returns(done);
+			sandbox.stub(boxClientFake, 'post').withArgs(TASK_ASSIGNMENTS_PATH ).yieldsAsync();
+			tasks.createAssignmentWithUserLogin(TASK_ID, login, done);
+		});
+	});
+
+	describe('createAssignmentWithUserID()', function() {
+		var	userID,
+			expectedParams;
+
+		beforeEach(function() {
+			userID = '1234';
+			expectedParams = {
+				body: {
+					item: {
+						type: 'task',
+						id: TASK_ID
+					},
+					assign_to: {
+						id: userID
+					}
+				}
+			};
+		});
+
+		it('should make POST request with user ID to create a task assignment when called', function() {
+			sandbox.stub(boxClientFake, 'defaultResponseHandler');
+			sandbox.mock(boxClientFake).expects('post').withArgs(TASK_ASSIGNMENTS_PATH, expectedParams);
+			tasks.createAssignmentWithUserID(TASK_ID, userID);
+		});
+
+		it('should call BoxClient defaultResponseHandler method with the callback when response is returned', function(done) {
+			sandbox.mock(boxClientFake).expects('defaultResponseHandler').withArgs(done).returns(done);
+			sandbox.stub(boxClientFake, 'post').withArgs(TASK_ASSIGNMENTS_PATH ).yieldsAsync();
+			tasks.createAssignmentWithUserID(TASK_ID, userID, done);
+		});
 	});
 
 });
