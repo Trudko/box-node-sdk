@@ -20,6 +20,8 @@ var sandbox = sinon.sandbox.create(),
 	Tasks,
 	tasks,
 	BASE_PATH = '/tasks',
+	TASK_ASSIGNMENTS_PATH = '/task_assignments',
+	TASK_ASSIGNEMENT_ID = '1234',
 	FILE_ID = '1234',
 	REVIEW_ACTION = 'review',
 	MODULE_FILE_PATH = '../../../lib/managers/tasks';
@@ -112,6 +114,20 @@ describe('Tasks', function() {
 			tasks.create(FILE_ID, {message: message, dueAt: dueAt}, done);
 		});
 
+	});
+
+	describe('deleteAssignement()', function() {
+		it('should make DELETE request to delete a task assignement when called', function() {
+			sandbox.stub(boxClientFake, 'defaultResponseHandler');
+			sandbox.mock(boxClientFake).expects('del').withArgs(TASK_ASSIGNMENTS_PATH + '/' + TASK_ASSIGNEMENT_ID, null);
+			tasks.deleteAssignement(TASK_ASSIGNEMENT_ID);
+		});
+
+		it('should call BoxClient defaultResponseHandler method with the callback when response is returned', function(done) {
+			sandbox.mock(boxClientFake).expects('defaultResponseHandler').withArgs(done).returns(done);
+			sandbox.stub(boxClientFake, 'del').withArgs().yieldsAsync();
+			tasks.deleteAssignement(TASK_ASSIGNEMENT_ID, done);
+		});
 	});
 
 });

@@ -4,6 +4,7 @@ Tasks
 Tasks enable file-centric workflows in Box. User can create tasks on files and assign them to collaborators on Box.
 
 * [Create a Task](#create-a-task)
+* [Delete a Task Assignement](#delete-a-task-assignement)
 
 Create a Task
 -------------
@@ -19,4 +20,13 @@ client.tasks.create(
 	},
 	callback
 );
+```
+
+Delete A Task Assignment
+------------------------
+
+To permanently delete a task assignment call the [`tasks.deleteAssignement(assignmentID, callback)`](http://opensource.box.com/box-node-sdk/Tasks.html#deleteAssignement) method.
+
+```js
+client.tasks.deleteAssignement('1234', callback);
 ```
